@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Taufan Augusta",
+  "classifications": [
+    "Console",
+    "Dependency Injection"
+  ],
+  "name": "Console App with Dependency Injection",
+  "identity": "Console.Solution.CSharp",
+  "groupIdentity": "Console.Solution",
+  "shortName": "console-di",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Hosted.Console",
+  "preferNameDirectory": true,
+  "sources": [
+      {
+        "modifiers": [
+          {
+            "exclude": [
+                ".git/**",
+                ".vscode/**",
+                ".gitignore",
+                "LICENSE",
+                "README.**"
+              ]
+          }
+        ]
+      }
+    ]
+}
