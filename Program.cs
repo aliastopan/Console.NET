@@ -1,27 +1,33 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Serilog;
+
 using Hosted.Console.Interfaces;
 using Hosted.Console.Services;
 
-var configuration = new ConfigurationBuilder()
+IConfigurationRoot configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .Build();
 
-var host = Host.CreateDefaultBuilder()
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .CreateLogger();
+
+IHost host = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) => {
         services.AddTransient<IStartupService, StartupService>();
     })
     .ConfigureLogging((context, logging) => {
-        logging.ClearProviders();
-        logging.AddConfiguration(context.Configuration.GetSection("Logging"));
-        logging.AddConsole();
+
     })
+    .UseSerilog()
     .Build();
 
-var startup = ActivatorUtilities.CreateInstance<StartupService>(host.Services);
+var app = ActivatorUtilities.CreateInstance<StartupService>(host.Services);
 
-startup.Run();
-startup.Flush();
+app.Run();
+app.Flush();
