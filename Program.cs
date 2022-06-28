@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Hosted.Console.Interfaces;
+using Hosted.Console.Services;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -10,7 +12,7 @@ var configuration = new ConfigurationBuilder()
 
 var host = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) => {
-
+        services.AddTransient<IStartupService, StartupService>();
     })
     .ConfigureLogging((context, logging) => {
         logging.ClearProviders();
@@ -18,3 +20,8 @@ var host = Host.CreateDefaultBuilder()
         logging.AddConsole();
     })
     .Build();
+
+var startup = ActivatorUtilities.CreateInstance<StartupService>(host.Services);
+
+startup.Run();
+startup.Flush();
