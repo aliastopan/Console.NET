@@ -3,9 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-using Hosted.Console.Interfaces;
-using Hosted.Console.Services;
-
 IConfigurationRoot configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -19,7 +16,7 @@ Log.Logger = new LoggerConfiguration()
 
 IHost host = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) => {
-        services.AddTransient<IStartupService, StartupService>();
+
     })
     .ConfigureLogging((context, logging) => {
 
@@ -27,7 +24,4 @@ IHost host = Host.CreateDefaultBuilder()
     .UseSerilog()
     .Build();
 
-var app = ActivatorUtilities.CreateInstance<StartupService>(host.Services);
-
-app.Run();
-app.Flush();
+Log.Logger.Information("Application starting...");
