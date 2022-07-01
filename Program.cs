@@ -18,9 +18,6 @@ IHost host = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) => {
 
     })
-    .ConfigureLogging((context, logging) => {
-
-    })
     .UseSerilog()
     .Build();
 
