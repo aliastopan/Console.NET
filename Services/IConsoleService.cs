@@ -1,6 +1,6 @@
 namespace Hosted.Console.Services;
 
-public interface IAppService
+public interface IConsoleService
 {
     void Run();
 }

@@ -17,11 +17,11 @@ Log.Logger = new LoggerConfiguration()
 
 IHost host = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) => {
-        services.AddTransient<IAppService, AppService>();
+        services.AddTransient<IConsoleService, ConsoleService>();
     })
     .UseSerilog()
     .Build();
 
-var app = ActivatorUtilities.CreateInstance<AppService>(host.Services);
+var app = ActivatorUtilities.CreateInstance<ConsoleService>(host.Services);
 
 app.Run();

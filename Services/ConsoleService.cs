@@ -3,12 +3,12 @@ using Microsoft.Extensions.Configuration;
 
 namespace Hosted.Console.Services;
 
-public class AppService : IAppService
+public class ConsoleService : IConsoleService
 {
-    private readonly ILogger<AppService> _logger;
+    private readonly ILogger<ConsoleService> _logger;
     private readonly IConfiguration _config;
 
-    public AppService(ILogger<AppService> logger, IConfiguration config)
+    public ConsoleService(ILogger<ConsoleService> logger, IConfiguration config)
     {
         _logger = logger;
         _config = config;
