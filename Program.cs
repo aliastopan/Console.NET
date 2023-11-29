@@ -14,6 +14,10 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 Host.CreateDefaultBuilder()
+    .ConfigureServices((context, services) =>
+    {
+
+    })
     .UseSerilog()
     .Build();
 
